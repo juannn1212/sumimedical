@@ -1,0 +1,30 @@
+# Laravel
+laravel-api/vendor/
+laravel-api/.env
+laravel-api/storage/*.key
+laravel-api/storage/logs/
+laravel-api/storage/framework/cache/
+laravel-api/storage/framework/sessions/
+laravel-api/storage/framework/views/
+laravel-api/bootstrap/cache/
+
+# NestJS
+nestjs-api/node_modules/
+nestjs-api/dist/
+nestjs-api/.env
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env*.local
+
+# Docker
+*.log
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

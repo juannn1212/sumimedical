@@ -1,0 +1,116 @@
+version: '3.8'
+
+services:
+  # MySQL para Laravel
+  mysql-laravel:
+    image: mysql:8.0
+    container_name: mysql-laravel
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_orders
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-laravel-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # MySQL para NestJS
+  mysql-nestjs:
+    image: mysql:8.0
+    container_name: mysql-nestjs
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nestjs_orders
+      MYSQL_USER: nestjs
+      MYSQL_PASSWORD: nestjs
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-nestjs-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # Redis para cache y colas
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - app-network
+
+  # Laravel API
+  laravel-api:
+    build:
+      context: ./laravel-api
+      dockerfile: Dockerfile
+    container_name: laravel-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./laravel-api:/var/www/html
+    environment:
+      DB_HOST: mysql-laravel
+      DB_DATABASE: laravel_orders
+      DB_USERNAME: laravel
+      DB_PASSWORD: laravel
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      NESTJS_API_URL: http://nestjs-api:3000
+    depends_on:
+      - mysql-laravel
+      - redis
+    networks:
+      - app-network
+
+  # NestJS API
+  nestjs-api:
+    build:
+      context: ./nestjs-api
+      dockerfile: Dockerfile
+    container_name: nestjs-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nestjs-api:/app
+    environment:
+      DB_HOST: mysql-nestjs
+      DB_PORT: 3306
+      DB_USERNAME: nestjs
+      DB_PASSWORD: nestjs
+      DB_DATABASE: nestjs_orders
+    depends_on:
+      - mysql-nestjs
+    networks:
+      - app-network
+
+  # Frontend Next.js
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      NEXT_PUBLIC_LARAVEL_API_URL: http://localhost:8000
+    depends_on:
+      - laravel-api
+    networks:
+      - app-network
+
+volumes:
+  mysql-laravel-data:
+  mysql-nestjs-data:
+  redis-data:
+
+networks:
+  app-network:
+    driver: bridge

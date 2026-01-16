@@ -1,0 +1,20 @@
+[
+  {
+    "order_number": "ORD-001",
+    "customer": "Juan Perez",
+    "product": "Servicio A",
+    "quantity": 2
+  },
+  {
+    "order_number": "ORD-002",
+    "customer": "Ana Gomez",
+    "product": "Medicamento B",
+    "quantity": 1
+  },
+  {
+    "order_number": "ORD-003",
+    "customer": "Carlos Ruiz",
+    "product": "Servicio C",
+    "quantity": 3
+  }
+]

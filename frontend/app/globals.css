@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  /* Slate 900 */
+  --background-rgb: 248, 250, 252;
+  /* Slate 50 */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-rgb));
+  /* Dot Pattern Background */
+  background-image:
+    radial-gradient(#cbd5e1 1px, transparent 1px),
+    radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Gradient overlay to soften the dots at the top */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom,
+      rgba(248, 250, 252, 0.8) 0%,
+      rgba(248, 250, 252, 0.4) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Luxe Glass Card */
+  /* Luxe Glass Card */
+  .luxe-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/50 rounded-2xl transition-all duration-300;
+    box-shadow: 0 4px 20px -4px rgba(148, 163, 184, 0.15);
+  }
+
+  .luxe-card:hover {
+    @apply -translate-y-[2px] bg-white/90;
+    box-shadow: 0 8px 30px -4px rgba(148, 163, 184, 0.2);
+  }
+
+  /* Tech Input */
+  .tech-input {
+    @apply w-full px-4 py-3 bg-white/60 backdrop-blur-sm border border-slate-200 rounded-xl text-sm font-medium text-slate-700 transition-all outline-none;
+    box-shadow: inset 0 2px 4px 0 rgba(148, 163, 184, 0.05);
+  }
+
+  .tech-input:focus {
+    @apply border-sky-500 ring-4 ring-sky-500/10 bg-white;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1);
+  }
+
+  /* Premium Button */
+  .premium-button {
+    @apply px-6 py-3 bg-slate-900 text-white font-semibold rounded-xl shadow-lg shadow-slate-900/20 hover:shadow-slate-900/30 hover:bg-slate-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2;
+  }
+
+  /* Status Badge Pills */
+  .status-pill {
+    @apply px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase border flex items-center gap-1.5;
+  }
+}

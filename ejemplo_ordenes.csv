@@ -1,0 +1,4 @@
+order_number,customer,product,quantity
+ORD-001,Juan Perez,Servicio A,2
+ORD-002,Ana Gomez,Medicamento B,1
+ORD-003,Carlos Ruiz,Servicio C,3
