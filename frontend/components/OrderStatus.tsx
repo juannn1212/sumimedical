@@ -84,7 +84,7 @@ export default function OrderStatus() {
           </div>
           <div className="space-y-1">
             <p className="text-lg font-bold text-slate-900 capitalize tracking-tight">{order.status}</p>
-            <p className="text-xs text-slate-400 font-medium">Actualizado: {new Date(order.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+            <p className="text-xs text-slate-400 font-medium" suppressHydrationWarning>Actualizado: {new Date(order.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
           </div>
         </div>
       )}
